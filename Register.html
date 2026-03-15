@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Register</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<style>
+
+body{
+font-family:'Inter',sans-serif;
+background:linear-gradient(135deg,#eef2ff,#f8fafc);
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+margin:0;
+}
+
+.container{
+width:90%;
+max-width:500px;
+}
+
+.title{
+text-align:center;
+margin-bottom:25px;
+}
+
+.card{
+background:white;
+padding:20px;
+margin-bottom:18px;
+border-radius:14px;
+box-shadow:8px 8px 16px rgba(0,0,0,0.08),
+-8px -8px 16px rgba(255,255,255,0.8);
+transition:all .25s ease;
+}
+
+.card:hover{
+transform:translateY(-3px);
+box-shadow:12px 12px 20px rgba(0,0,0,0.12);
+}
+
+label{
+display:block;
+margin-bottom:8px;
+font-weight:500;
+}
+
+input,select{
+width:100%;
+padding:10px;
+border-radius:8px;
+border:1px solid #ddd;
+font-size:14px;
+}
+
+.radio-group{
+display:flex;
+gap:15px;
+flex-wrap:wrap;
+}
+
+.submit-btn{
+width:100%;
+padding:14px;
+border:none;
+border-radius:12px;
+font-size:16px;
+color:white;
+cursor:pointer;
+background:linear-gradient(135deg,#6366f1,#8b5cf6);
+box-shadow:0 10px 20px rgba(99,102,241,.3);
+transition:all .2s ease;
+}
+
+.submit-btn:hover{
+transform:translateY(-2px);
+box-shadow:0 14px 28px rgba(99,102,241,.4);
+}
+
+.submit-btn:active{
+transform:scale(.97);
+}
+
+.success-card{
+text-align:center;
+padding:40px;
+}
+
+.checkmark{
+font-size:60px;
+color:#10b981;
+margin-bottom:10px;
+}
+
+.hidden{
+display:none;
+}
+
+.loader{
+width:50px;
+height:50px;
+border:6px solid #eee;
+border-top:6px solid #6366f1;
+border-radius:50%;
+animation:spin 1s linear infinite;
+margin:auto;
+}
+
+@keyframes spin{
+0%{transform:rotate(0)}
+100%{transform:rotate(360deg)}
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1 class="title">Register</h1>
+
+<form id="registerForm">
+
+<div class="card">
+<label>Full Name</label>
+<input type="text" id="name" required>
+</div>
+
+<div class="card">
+<label>Email</label>
+<input type="email" id="email" required>
+</div>
+
+<div class="card">
+<label>WhatsApp Number</label>
+<input type="tel" id="phone" required>
+</div>
+
+<div class="card">
+
+<label>Year of Study</label>
+
+<div class="radio-group">
+<label><input type="radio" name="year" value="Year 1"> Year 1</label>
+<label><input type="radio" name="year" value="Year 2"> Year 2</label>
+<label><input type="radio" name="year" value="Year 3"> Year 3</label>
+<label><input type="radio" name="year" value="Year 4"> Year 4</label>
+</div>
+
+</div>
+
+<div class="card">
+
+<label>College</label>
+
+<select id="college">
+<option value="">Select College</option>
+<option>PIET</option>
+<option>PIT</option>
+</select>
+
+</div>
+
+<div class="card">
+<label>LinkedIn Profile</label>
+<input type="url" id="linkedin" required>
+</div>
+
+<div class="card">
+<label>GitHub Profile</label>
+<input type="url" id="github" placeholder="Optional — Add GitHub profile if available">
+</div>
+
+<button class="submit-btn">
+Submit Details
+</button>
+
+</form>
+
+<div id="loader" class="loader hidden"></div>
+
+<div id="successPage" class="card success-card hidden">
+
+<div class="checkmark">✓</div>
+
+<h2>Your details have been submitted successfully!</h2>
+
+<p>Thank you for registering.</p>
+
+<button onclick="editDetails()" class="submit-btn">
+Edit Details
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+emailjs.init("YOUR_PUBLIC_KEY");
+
+const form=document.getElementById("registerForm");
+
+form.addEventListener("submit",function(e){
+
+e.preventDefault();
+
+let name=document.getElementById("name").value.trim();
+let email=document.getElementById("email").value.trim();
+let phone=document.getElementById("phone").value.trim();
+let year=document.querySelector('input[name="year"]:checked');
+let college=document.getElementById("college").value;
+let linkedin=document.getElementById("linkedin").value;
+let github=document.getElementById("github").value;
+
+if(!name||!email||!phone||!year||!college||!linkedin){
+
+alert("Please fill all required fields");
+return;
+
+}
+
+if(phone.length<10){
+
+alert("Invalid WhatsApp number");
+return;
+
+}
+
+document.getElementById("loader").classList.remove("hidden");
+
+const params={
+name:name,
+email:email,
+phone:phone,
+year:year.value,
+college:college,
+linkedin:linkedin,
+github:github
+};
+
+emailjs.send("YOUR_SERVICE_ID","YOUR_TEMPLATE_ID",params)
+
+.then(function(){
+
+document.getElementById("loader").classList.add("hidden");
+
+form.classList.add("hidden");
+
+document.getElementById("successPage").classList.remove("hidden");
+
+})
+
+.catch(function(){
+
+alert("Submission failed");
+
+});
+
+});
+
+function editDetails(){
+
+location.reload();
+
+}
+
+</script>
+
+</body>
+
+</html>
