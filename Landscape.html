@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gateway</title>
+
+<style>
+body{
+    margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: linear-gradient(135deg,#4facfe,#00f2fe);
+}
+
+/* Main container */
+.container{
+    text-align:center;
+    background:white;
+    padding:50px 60px;
+    border-radius:15px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+    animation:fadeIn 1s ease;
+}
+
+/* Title */
+h1{
+    margin-bottom:20px;
+    color:#333;
+}
+
+/* Caption */
+.caption{
+    font-size:18px;
+    margin-bottom:30px;
+    color:#555;
+}
+
+/* Launch Button */
+.launch-btn{
+    text-decoration:none;
+    padding:14px 40px;
+    font-size:18px;
+    border-radius:30px;
+    background:linear-gradient(45deg,#ff6a00,#ff3c00);
+    color:white;
+    font-weight:bold;
+    transition:0.3s;
+    display:inline-block;
+}
+
+/* Hover effect */
+.launch-btn:hover{
+    transform:scale(1.1);
+    box-shadow:0 6px 20px rgba(0,0,0,0.3);
+}
+
+/* Small animation */
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Gateway</h1>
+    <p class="caption">For viewing the website click on the below label</p>
+
+    <a href="https://landscape123.lovable.app" class="launch-btn" target="_blank">
+        Launch
+    </a>
+</div>
+
+</body>
+</html>
